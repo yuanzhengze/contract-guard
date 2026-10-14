@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>合同哨兵 · AI 合同风险审查</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" id="brand"><span class="logo">🛡️</span><b>合同哨兵</b><span class="tag">AI 合同风险审查</span></a>
+    <div class="topbar-right">
+      <span class="engine" id="engine">AI 引擎连接中…</span>
+    </div>
+  </header>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- 落地页 -->
+  <main id="view-landing" class="view landing">
+    <section class="hero">
+      <h1>签合同前，<span class="hl">1 分钟</span>看清哪里会坑你</h1>
+      <p class="sub">专为没有法务的小团队设计。上传合同，AI 按 10 类风险清单逐条体检，每条风险都能点回原文，并给出可直接发给对方的修改建议。</p>
+      <div class="usp">
+        <div><b>⚡ 1 分钟出报告</b><span>上传即审查，无需提问</span></div>
+        <div><b>📍 每条风险可溯源</b><span>原文高亮，一键定位</span></div>
+        <div><b>✍️ 改法直接可用</b><span>修改建议可复制给对方</span></div>
+      </div>
+      <label id="dropzone" class="dropzone" tabindex="0">
+        <input type="file" id="file" accept="application/pdf,.pdf" hidden />
+        <div class="dz-icon">📄</div>
+        <div class="dz-title">拖拽合同 PDF 到这里，或 <u>点击选择文件</u></div>
+        <div class="dz-hint">支持文字版 PDF，≤ 10MB ｜ 文件仅在内存中处理，不会被保存</div>
+      </label>
+      <button id="btn-sample" class="btn-link">没有合同？<b>使用示例合同体验 →</b></button>
+      <div class="checklist-preview" id="checklist-preview"></div>
+    </section>
+  </main>
+
+  <!-- 审查中 -->
+  <main id="view-reviewing" class="view hidden">
+    <section class="progress-card">
+      <div class="pc-file" id="pc-file"></div>
+      <h2>AI 正在审查你的合同</h2>
+      <ol class="steps" id="steps">
+        <li data-step="parse">解析文档</li>
+        <li data-step="split">识别条款</li>
+        <li data-step="analyze">AI 逐项审查</li>
+        <li data-step="verify">校验引用原文</li>
+        <li data-step="done">生成报告</li>
+      </ol>
+      <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
+      <div class="pc-label" id="pc-label">准备中…</div>
+      <div class="pc-tip">真实大模型逐条审查，通常需要 30–90 秒</div>
+      <div class="pc-actions hidden" id="pc-actions">
+        <button class="btn primary" id="btn-retry">重试</button>
+        <button class="btn" id="btn-back">返回首页</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 报告 -->
+  <main id="view-report" class="view report hidden">
+    <div class="report-head">
+      <div>
+        <div class="rh-file" id="rh-file"></div>
+        <div class="rh-meta" id="rh-meta"></div>
+      </div>
+      <div class="rh-actions">
+        <button class="btn" id="btn-new">重新上传</button>
+        <button class="btn primary" id="btn-export">⬇ 导出报告</button>
+      </div>
+    </div>
+    <div class="overview" id="overview"></div>
+    <div class="split">
+      <section class="pane doc-pane">
+        <div class="pane-title">合同原文 <span class="muted" id="doc-hint">点击高亮可查看对应风险</span></div>
+        <div class="doc" id="doc"></div>
+      </section>
+      <section class="pane side-pane">
+        <div class="tabs">
+          <button class="tab active" data-tab="risks">风险清单 <span class="badge" id="risk-count"></span></button>
+          <button class="tab" data-tab="chat">AI 追问</button>
+        </div>
+        <div class="tab-body" id="tab-risks">
+          <div class="filters" id="filters"></div>
+          <div class="cards" id="cards"></div>
+        </div>
+        <div class="tab-body hidden" id="tab-chat">
+          <div class="messages" id="messages">
+            <div class="msg assistant intro">你好，我已经读完这份合同。可以问我任何条款相关的问题，比如“对方违约我能拿到什么赔偿？”。我的回答会标注依据的条款。</div>
+          </div>
+          <div class="quick" id="quick"></div>
+          <form class="composer" id="composer">
+            <div class="ctx hidden" id="ctx"></div>
+            <div class="composer-row">
+              <textarea id="question" rows="2" maxlength="500" placeholder="输入你的问题，Enter 发送，Shift+Enter 换行"></textarea>
+              <button class="btn primary" id="btn-send" type="submit">发送</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="disclaimer">⚠️ 本工具由 AI 生成审查意见，仅供参考，不构成法律意见。重要合同请咨询专业律师。</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

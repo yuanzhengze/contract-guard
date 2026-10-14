@@ -1,0 +1,13 @@
+{
+  "note": "预埋风险答案，仅用于 npm run eval 评测召回率。命中规则：模型某条风险的 quote 或 title+explanation 包含 anyOf 中任一关键词即视为命中。",
+  "risks": [
+    { "id": "E1", "name": "尾款 60% 且验收后 180 日付款", "category": "payment", "level": "high", "anyOf": ["180 日", "180日", "180天"] },
+    { "id": "E2", "name": "乙方逾期每日 1% 违约金，甲方逾期付款无责任", "category": "liability", "level": "high", "anyOf": ["1% 的违约金", "1%的违约金", "每逾期一日"] },
+    { "id": "E3", "name": "甲方可随时解除且不付已完成工作费用", "category": "termination", "level": "high", "anyOf": ["随时书面通知乙方解除", "无需就乙方已完成的工作支付"] },
+    { "id": "E4", "name": "乙方无上限赔偿含间接损失", "category": "indemnity", "level": "high", "anyOf": ["不受合同总金额限制", "间接损失、预期利润损失"] },
+    { "id": "E5", "name": "乙方既有技术与通用组件 IP 转让甲方", "category": "ip", "level": "medium", "anyOf": ["既有技术", "通用组件"] },
+    { "id": "E6", "name": "甲方单方变更需求不调整费用工期", "category": "other", "level": "medium", "anyOf": ["随时变更、增加或删减需求", "不得据此要求增加合同费用"] },
+    { "id": "E7", "name": "甲方所在地法院管辖", "category": "dispute", "level": "medium", "anyOf": ["甲方所在地"] },
+    { "id": "E8", "name": "验收标准与期限由甲方确定", "category": "acceptance", "level": "medium", "anyOf": ["验收标准及验收期限由甲方", "直至验收合格为止"] }
+  ]
+}

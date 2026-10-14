@@ -1,0 +1,26 @@
+{
+  "name": "contract-guard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "合同哨兵 ContractGuard —— AI 合同风险审查助手",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test --test-isolation=none test/*.test.js",
+    "eval": "node scripts/eval.js",
+    "e2e": "node scripts/ui-e2e.js",
+    "sample:pdf": "node scripts/make-sample-pdf.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.22.3",
+    "multer": "^2.4.0",
+    "pdfjs-dist": "^4.10.38",
+    "pdfkit": "^0.20.2"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.2"
+  }
+}
